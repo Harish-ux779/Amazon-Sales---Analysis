@@ -17,3 +17,6 @@ missing values and ensure data quality.
 ## Analysis Questions Resolved
 During the analysis, the following key questions were addressed using SQL queries and data
 analysis techniques:
+
+1. Find out the top 5 customers who made the highest profits.
+![Top 5 Customers Query](insert_image_link_here)
