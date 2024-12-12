@@ -21,5 +21,5 @@ analysis techniques:
 1. Find out the customer names,customer_ID and total number of returns and show the customer when the number of returs <=2 as "Low rx Customer" and returns between 2 to 5 as "Mid rx customer", rest of them as "High rx customer".
 ![Returning customer query](https://github.com/Harish-ux779/Amazon-Sales---Analysis/blob/main/Q1.Screenshot.jpg)
 
-2. Find out the customer names,customer_ID and total number of returns and show the customer when the number of returs <=2 as "Low rx Customer" and returns between 2 to 5 as "Mid rx customer", rest of them as "High rx customer".
+2. Find out the top 5 customers who made the highest profits.
 ![Top 5 Customers Query](https://github.com/Harish-ux779/Amazon-Sales---Analysis/blob/main/Q2.Screenshot.jpg)
