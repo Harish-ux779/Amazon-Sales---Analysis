@@ -19,4 +19,4 @@ During the analysis, the following key questions were addressed using SQL querie
 analysis techniques:
 
 1. Find out the customer names,customer_ID and total number of returns and show the customer when the number of returs <=2 as "Low rx Customer" and returns between 2 to 5 as "Mid rx customer", rest of them as "High rx customer".
-![Top 5 Customers Query](insert_image_link_here)
+![Top 5 Customers Query](https://github.com/Harish-ux779/Amazon-Sales---Analysis/blob/main/Q1.Screenshot.jpg)
