@@ -18,5 +18,5 @@ missing values and ensure data quality.
 During the analysis, the following key questions were addressed using SQL queries and data
 analysis techniques:
 
-1. Find out the top 5 customers who made the highest profits.
+1. Find out the customer names,customer_ID and total number of returns and show the customer when the number of returs <=2 as "Low rx Customer" and returns 2 to 5 as "Mid rx customer", rest of them as "High rx customer".
 ![Top 5 Customers Query](insert_image_link_here)
