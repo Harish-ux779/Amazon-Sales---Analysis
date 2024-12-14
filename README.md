@@ -29,3 +29,7 @@ analysis techniques:
 3. Write an SQL query to retrieve the second highest sales per state for the year 2023, including the product name and the seller name associated with each sale?
    
 ![Top 5 Customers Query](https://github.com/Harish-ux779/Amazon-Sales---Analysis/blob/main/Q3.Screenshot.jpg)
+
+4. Identify the top 6 states with the highest total orders, where each state's total orders exceed the average order across all states. Return the state name and the total number of orders for each.
+   
+![Top 5 Customers Query](https://github.com/Harish-ux779/Amazon-Sales---Analysis/blob/main/Q4.Screenshot.jpg)
