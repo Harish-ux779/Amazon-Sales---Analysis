@@ -22,10 +22,10 @@ analysis techniques:
    
 ![Returning customer query](https://github.com/Harish-ux779/Amazon-Sales---Analysis/blob/main/Q1.Screenshot.jpg)
 
-3. Find out the top 5 customers who made the highest profits.
+2. Find out the top 5 customers who made the highest profits.
    
 ![Top 5 Customers Query](https://github.com/Harish-ux779/Amazon-Sales---Analysis/blob/main/Q2.Screenshot.jpg)
 
 3. Write an SQL query to retrieve the second highest sales per state for the year 2023, including the product name and the seller name associated with each sale?
    
-![Top 5 Customers Query]()
+![Top 5 Customers Query](https://github.com/Harish-ux779/Amazon-Sales---Analysis/blob/main/Q3.Screenshot.jpg)
