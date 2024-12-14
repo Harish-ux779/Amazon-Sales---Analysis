@@ -35,6 +35,6 @@ analysis techniques:
 ![Top 5 Customers Query](https://github.com/Harish-ux779/Amazon-Sales---Analysis/blob/main/Q4.Screenshot.jpg)
 
 4. Write a query to and return the the top 5 product names which the growth rate decreased in 2023, show the product product_id,
-product name,year,growth_rate decreased.
+product name, year, growth_rate decreased.
    
 ![Top 5 Customers Query](https://github.com/Harish-ux779/Amazon-Sales---Analysis/blob/main/Q5.Screenshot.jpg)
