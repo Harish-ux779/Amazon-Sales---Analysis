@@ -1,0 +1,163 @@
+1> Find out the customer names,customer_ID and total number of returns and show the customer when the number of returs <=2 as "Low rx Customer" and returns 2 to 5 as "Mid rx customer", rest of them as "High rx customer" 
+
+SELECT
+	o.customer_id,
+	count(o.order_id) as total_orders,
+	count(r.return_id) as total_returns,
+	c.customer_name,
+CASE
+	WHEN count(r.return_id) <=2 THEN 'Low rx Customer'
+	WHEN count(r.return_id) BETWEEN 2 AND 5 THEN 'Mid rx customer'
+	ELSE 'High rx customer'
+	END AS category
+FROM
+orders AS o
+LEFT JOIN
+returns AS r
+ON o.order_id = r.order_id
+JOIN
+customers AS c
+ON c.customer_id = o.customer_id
+GROUP BY 1,4
+ORDER BY 3 DESC
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+2> Find out the top 5 customers who made the highest profits
+
+WITH profit_tab
+AS
+(SELECT
+	o.customer_id,
+	c.customer_name,
+	ROUND(SUM(o.quantity::numeric * p.cogs::numeric),2)as actual_price,
+	ROUND(SUM(o.sale::numeric),2)as sold_price
+FROM
+orders AS o
+JOIN
+products AS p
+ON o.product_id = p.product_id
+LEFT JOIN
+customers AS c
+ON o.customer_id = c.customer_id
+GROUP BY 1,2)
+
+SELECT
+	customer_id,
+	customer_name,
+	actual_price,
+	sold_price,
+	sold_price - actual_price AS profit
+FROM profit_tab
+ORDER BY 5 DESC
+LIMIT 5
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+3>Write an SQL query to retrieve the second highest sales per state for the year 2023, including the product name and the seller name associated with each sale?
+
+SELECT * FROM
+(SELECT
+	o.state,
+	p.product_name,
+	s.seller_name,
+	EXTRACT(YEAR from o.order_date) as Year,
+	SUM(o.sale) as total_sales,
+	DENSE_RANK() OVER(PARTITION BY o.state ORDER BY SUM(o.sale) DESC) as ranking	
+FROM
+	orders as o
+JOIN
+	products as p
+ON o.product_id = p.product_id
+LEFT JOIN
+	sellers as s
+ON o.seller_id = s.seller_id
+GROUP BY 1,2,3,4)
+
+WHERE ranking = 2 AND Year = 2023
+ORDER BY total_sales DESC
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+4> Identify the top 6 states with the highest total orders, where each state's total orders exceed the average order across all states. Return the state name and the total number of orders for each.
+
+SELECT
+	state,
+	count(order_id) as total_orders
+FROM orders
+GROUP BY 1
+HAVING count(order_id) > (select count(order_id) /count(Distinct(state)) from orders where state IS NOT NULL)
+ORDER BY 2 DESC
+LIMIT 6
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+5>--Write a query to and return the the top 5 product names which the growth rate decreased by previous years by sales, show the product product_id,
+product name,years,growth_rate decreased.
+Source(Amazon)
+solution :
+
+WITH growth_table
+AS
+(SELECT
+	o.product_id,
+	p.product_name,
+	EXTRACT(YEAR from o.order_date) as Years,
+	sum(o.sale::numeric) as total_sales,
+	LAG(sum(o.sale::numeric)) OVER(PARTITION BY o.product_id ORDER BY EXTRACT(YEAR from o.order_date)) as PreviousYear_sales
+FROM
+	orders as o
+JOIN
+	products as p
+ON o.product_id = p.product_id
+GROUP BY 1,2,3)
+
+SELECT
+	product_id,
+	product_name,
+	Years,
+	total_sales,
+	PreviousYear_sales,
+	ROUND((total_sales::numeric-PreviousYear_sales::numeric) / PreviousYear_sales::numeric * 100,2) as growth
+FROM growth_table
+WHERE PreviousYear_sales is NOT Null AND ROUND((total_sales::numeric-PreviousYear_sales::numeric) / PreviousYear_sales::numeric * 100,2) < 0
+ORDER BY 6
+LIMIT 5
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+6) Create a store procedure to take the input order_id & Order_date from the user and display the order_id,customer_id,customer_name & order_date, and also provide the errro message if the order ID or date is wrong.
+
+CREATE OR REPLACE PROCEDURE sales_data(p_oid VARCHAR,p_odate DATE)
+LANGUAGE plpgsql
+AS
+$$
+DECLARE
+	v_order_id VARCHAR;
+	v_customer_id VARCHAR;
+	v_customer_name VARCHAR;
+	v_order_date DATE;
+	v_cnt INT;
+	
+BEGIN
+	
+	SELECT
+	COUNT(o.order_id) INTO v_cnt
+	FROM orders as o
+	WHERE order_id = p_oid AND order_date = p_odate;
+	
+	IF v_cnt > 0 THEN
+	SELECT
+	o.order_id,
+	o.customer_id,
+	c.customer_name,
+	o.order_date
+	INTO
+	v_order_id,
+	v_customer_id,
+	v_customer_name,
+	v_order_date
+	FROM orders as o
+	JOIN customers as c
+	ON o.customer_id = c.customer_id
+	WHERE o.order_id = p_oid AND o.order_date = p_odate
+	GROUP BY 1,2,3,4;
+	
+	RAISE NOTICE 'orderID: %,customerID: %,CustomerName: %,OrderDate: %',v_order_id,v_customer_id,v_customer_name,v_order_date;
+
+	ELSE RAISE NOTICE 
+		'RECORD NOT AVAILABLE IN THE TABLE PLEASE CHECK THE order_id or date'; 
+
+	END IF;	
+END
+	$$;
