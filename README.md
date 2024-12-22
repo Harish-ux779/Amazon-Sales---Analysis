@@ -44,4 +44,4 @@ product name, year, growth_rate decreased.
 ![Top 5 Customers Query](https://github.com/Harish-ux779/Amazon-Sales---Analysis/blob/main/Q6.Screenshot.jpg)
 
 ## Entity-Relationship Diagram (ERD)
-![ERD Image](insert_banner_image_link_here)
+![ERD Image](https://github.com/Harish-ux779/Amazon-Sales---Analysis/blob/main/ERD.jpg)
