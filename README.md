@@ -38,3 +38,7 @@ analysis techniques:
 product name, year, growth_rate decreased.
    
 ![Top 5 Customers Query](https://github.com/Harish-ux779/Amazon-Sales---Analysis/blob/main/Q5.Screenshot.jpg)
+
+6. Create a store procedure to the input order_id & Order_date from the user and display the order_id,customer_id,customer_name & order_date, and also provide the errro message if the order ID or date is wrong.
+   
+![Top 5 Customers Query](https://github.com/Harish-ux779/Amazon-Sales---Analysis/blob/main/Q6.Screenshot.jpg)
